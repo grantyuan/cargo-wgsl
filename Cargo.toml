@@ -2,7 +2,7 @@
 name = "cargo-wgsl"
 version = "0.0.10"
 authors = ["Poly <marynczak.bartlomiej@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 description = "Validate wgsl in rust projects"
 keywords = ["CLI", "wgsl", "cargo"]
@@ -15,4 +15,19 @@ walkdir = "2.3"
 serde = { version = "1.0", features = ["derive"] }
 jsonrpc-stdio-server = "18.0.0"
 tokio = { version = "1", features = ["rt-multi-thread", "io-util", "time", "net"]}
-naga = { version = "0.8.0", features = ["wgsl-in", "validate"] }
+# naga = { version = "0.8.0", features = ["wgsl-in", "validate"] }
+[dependencies.naga]
+git = "https://github.com/gfx-rs/naga"
+# rev = "571302e"
+branch = "master"
+#version = "0.8"
+features = ["wgsl-in","validate"]
+
+
+[dev.dependencies.naga]
+git = "https://github.com/gfx-rs/naga"
+# rev = "571302e"
+branch = "master"
+#version = "0.8"
+features = ["wgsl-in","validate"]
+

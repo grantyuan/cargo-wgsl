@@ -1,4 +1,6 @@
-use naga::{front::wgsl::ParseError, valid::ValidationError, WithSpan};
+
+
+use naga::{front::wgsl::ParseError, valid::ValidationError, WithSpan, SourceLocation};
 
 #[derive(Debug)]
 pub enum WgslError {
@@ -19,8 +21,9 @@ impl From<std::io::Error> for WgslError {
 
 impl WgslError {
     pub fn from_parse_err(err: ParseError, src: &str) -> Self {
-        let (line, pos) = err.location(src);
+        let SourceLocation{line_number, line_position, offset: _, length: _ } = err.location(src).unwrap();
         let error = err.emit_to_string(src);
-        Self::ParserErr { error, line, pos }
+        Self::ParserErr { error, line:line_number as usize, pos:line_position as  usize}
+        // Self::ParserErr { error, line:line_number as usize, pos:line_position as  usize}
     }
 }
